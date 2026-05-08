@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنظومة الإعلامية المركزية</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #C5A022;
+            --deep-red: #8B0000;
+            --accent-red: #D32F2F;
+            --pure-white: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        
+        body { background-color: var(--pure-white); color: #2d2d2d; line-height: 1.8; overflow-x: hidden; }
+
+        /* Scroll Progress Bar */
+        #progress { position: fixed; top: 0; right: 0; height: 4px; background: var(--primary-gold); z-index: 1000; width: 0%; transition: 0.1s; }
+
+        /* General Classes */
+        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Header Section */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #fff 0%, #f9f9f9 100%);
+            padding: 20px;
+            position: relative;
+        }
+
+        .header-content h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 900;
+            color: var(--deep-red);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .header-content span { color: var(--primary-gold); font-family: 'Playfair Display', serif; display: block; font-size: 1.5rem; }
+
+        /* Vertical Flow Separator */
+        .workflow-line {
+            position: relative;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .workflow-line::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--primary-gold), transparent);
+            transform: translateX(-50%);
+        }
+
+        .separator-point {
+            background: var(--deep-red);
+            color: var(--pure-white);
+            padding: 15px 40px;
+            border-radius: 50px;
+            display: inline-block;
+            position: relative;
+            z-index: 5;
+            font-weight: 700;
+            border: 4px solid var(--primary-gold);
+            box-shadow: var(--shadow);
+        }
+
+        /* Bento Grid Layout */
+        .grid-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .bento-card {
+            background: var(--glass-bg);
+            border: 1px solid #f0f0f0;
+            padding: 40px;
+            border-radius: 24px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .bento-card:hover { transform: scale(1.02); border-color: var(--primary-gold); }
+
+        .card-full { grid-column: span 12; }
+        .card-large { grid-column: span 8; }
+        .card-small { grid-column: span 4; }
+
+        .bento-card h3 { color: var(--deep-red); margin-bottom: 15px; font-size: 1.8rem; display: flex; align-items: center; gap: 10px; }
+        .bento-card h3::before { content: '•'; color: var(--primary-gold); font-size: 2rem; }
+
+        /* Identity Section - Gold & Red Impact */
+        .identity-section {
+            background: var(--deep-red);
+            color: var(--pure-white);
+            padding: 100px 20px;
+            text-align: center;
+            margin: 100px 0;
+        }
+
+        .identity-box {
+            border: 2px solid var(--primary-gold);
+            padding: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .identity-box h2 { font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 30px; }
+
+        /* Management Team */
+        .team-section { text-align: center; padding: 100px 20px; }
+        .team-flex { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 50px; }
+        
+        .member-card {
+            background: #fff;
+            padding: 30px;
+            width: 300px;
+            border-radius: 20px;
+            border-top: 5px solid var(--primary-gold);
+            box-shadow: var(--shadow);
+        }
+
+        .member-card .role { color: var(--accent-red); font-weight: bold; font-size: 0.9rem; }
+        .member-card .name { font-size: 1.5rem; font-weight: 700; margin-top: 5px; }
+
+        /* Footer Signature */
+        footer {
+            background: #111;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .boss-signature {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: var(--primary-gold);
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 992px) {
+            .card-large, .card-small { grid-column: span 12; }
+            .identity-box { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress"></div>
+
+    <!-- Hero Section -->
+    <header>
+        <div class="header-content reveal">
+            <span>بروتوكول العمل المعتمد</span>
+            <h1>آليات العمل بالمكتب الإعلامي المركزي</h1>
+            <div style="height: 5px; width: 100px; background: var(--primary-gold); margin: 20px auto;"></div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Workflow Point -->
+        <div class="workflow-line">
+            <div class="separator-point reveal">نقطة فاصلة: طريقة سير العمل للمكتب الإعلامي</div>
+        </div>
+
+        <!-- Section 1: Coordination -->
+        <div class="grid-container">
+            <div class="bento-card card-large reveal">
+                <h3>تنسيق المهام واللجان</h3>
+                <p>على جميع اللجان العاملة الالتزام المطلق بتنسيق خططها التشغيلية وعرضها على المكتب الإعلامي قبل البدء. يشمل ذلك تحديد الموارد المطلوبة والجدول الزمني لضمان مخرجات تليق بالإتحاد.</p>
+            </div>
+            
+            <div class="bento-card card-small reveal">
+                <h3>الفعاليات بالمحافظات</h3>
+                <p>يمنع منعاً باتاً إقامة أي فاعلية دون إحاطة المكتب الإعلامي. التشديد على عدم تكرار أخطاء (أ) السابقة؛ الالتزام بالبلاغ المسبق هو معيار الانضباط.</p>
+            </div>
+
+            <!-- Section 2: HR & Evaluation -->
+            <div class="bento-card card-small reveal">
+                <h3>الرقابة الإدارية (HR)</h3>
+                <p>يتم تعيين عضو موارد بشرية مركزي بصلاحيات كاملة لتقييم أداء رؤساء ونواب اللجان ومتابعة سير المهام اليومية.</p>
+            </div>
+
+            <div class="bento-card card-large reveal">
+                <h3>متابعة مسؤولي التنفيذ</h3>
+                <p>تخضع كافة التقارير الواردة لمراجعة دقيقة من مسؤولي المتابعة لضمان عدم وجود أي انحراف عن الخطط الموضوعة.</p>
+            </div>
+        </div>
+
+        <!-- Identity Section -->
+        <section class="identity-section reveal">
+            <div class="identity-box">
+                <h2>الهوية البصرية والتدخلات</h2>
+                <div class="grid-container" style="padding: 0; background: transparent;">
+                    <div style="grid-column: span 12; text-align: right; font-size: 1.2rem;">
+                        <p>• الالتزام الصارم بالهوية المختارة (الأحمر والذهبي).</p>
+                        <p>• يمنع تدخل أي لجنة في التصاميم؛ الاختصاص الفني ملك للمكتب الإعلامي فقط.</p>
+                        <p>• الالتزام بالتصاميم الموحدة في كافة المنصات والفعاليات.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring Team -->
+        <section class="team-section">
+            <h2 class="reveal" style="color: var(--deep-red);">مسؤولي المتابعة المركزية</h2>
+            <div class="team-flex">
+                <div class="member-card reveal">
+                    <span class="role">مسؤول متابعة</span>
+                    <div class="name">بسنت القاضي</div>
+                </div>
+                <div class="member-card reveal">
+                    <span class="role">مسؤول متابعة</span>
+                    <div class="name">عبد الرحمن محسن</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="reveal">
+            <p style="text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px;">رئيس المكتب الإعلامي المركزي</p>
+            <div class="boss-signature">محمد محمود الشحات</div>
+            <div style="height: 2px; width: 200px; background: var(--primary-gold); margin: 30px auto;"></div>
+            <p style="opacity: 0.5;">حقوق التنظيم محفوظة &copy; 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
+            reveal();
+        };
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        
+        // Initial check
+        reveal();
+    </script>
+</body>
+</html>
